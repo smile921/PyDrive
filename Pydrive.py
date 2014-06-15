@@ -4,12 +4,13 @@ from scapy.all import *
 import os
 
 apList = [] 
+interface = "wlan0"
 f = open('wardriving.txt', 'a+') #Create/append to the file "wardriving.txt"
 
 #Put wireless NIC into monitor mode.
 def monMode():
-	os.system("ifconfig wlan0 down")
-	os.system("iwconfig wlan0 mode monitor")
+	os.system("ifconfig " + interface + " down")
+	os.system("iwconfig " + interface + " mode monitor")
 
 #Capture beacon frames and display MAC + SSID
 def pktCap(pkt):
@@ -22,7 +23,6 @@ def pktCap(pkt):
 			
 			print accessPoint
 			f.write(accessPoint)
-	
 
 monMode()
 	
