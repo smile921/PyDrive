@@ -3,7 +3,7 @@
 from scapy.all import *
 import os
 
-apList[] 
+apList = [] 
 f = open('wardriving.txt', 'a+') #Create/append to the file "wardriving.txt"
 
 #Put wireless NIC into monitor mode.
@@ -18,13 +18,13 @@ def pktCap(pkt):
 		
 		if pkt.addr2 not in apList: #If we haven't seen this access point append it to the list(apList) and write to a file.
 			apList.append(pkt.addr2)
-			accessPoint = ("Access Point MAC address: " + pjt.addr2 + " with SSID " + pkt.info)
+			accessPoint = ("Access Point MAC address: " + pkt.addr2 + " with SSID " + pkt.info)
 			
 			print accessPoint
 			f.write(accessPoint)
 	
 
-monmode()
+monMode()
 	
 conf.iface = "mon0"
 sniff(prn=pktCap)
