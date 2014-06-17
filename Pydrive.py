@@ -2,8 +2,9 @@
 #Author: Jared Stroud
 from scapy.all import *
 import os
-
+import time
 apList = [] 
+
 interface = "wlan0"
 f = open('wardriving.txt', 'a+') #Create/append to the file "wardriving.txt"
 
@@ -19,10 +20,14 @@ def pktCap(pkt):
 		
 		if pkt.addr2 not in apList: #If we haven't seen this access point append it to the list(apList) and write to a file.
 			apList.append(pkt.addr2)
-			accessPoint = ("Access Point MAC address: " + pkt.addr2 + " with SSID " + pkt.info)
+			accessPoint = ("Access Point MAC address: " + pkt.addr2 + " with SSID " + pkt.info + "\n")
 			
 			print accessPoint
 			f.write(accessPoint)
+		else:
+			print("Waiting for something new...\n")
+			time.sleep(5)
+			
 
 monMode()
 	
